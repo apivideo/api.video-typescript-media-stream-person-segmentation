@@ -1,0 +1,84 @@
+<html>
+
+<head>
+    <script src="../dist/index.js"></script>
+    <style>
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #video {
+            width: 640;
+            height: 480;
+            border: 1px solid gray;
+        }
+
+        #container div {
+            margin: 10px 0;
+        }
+
+        label {
+            display: inline-block;
+            width: 160px;
+            text-align: right;
+        }
+
+        input {
+            display: inline-block;
+            width: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div>
+            <video muted id="video"></video>
+        </div>
+        <div>
+            <div>
+                <label for="blur">Blur background</label>
+                <input type="range" id="blur" min="0" max="100" value="15" />
+            </div>
+            <div>
+                <label for="blurEdges">Blur edges</label>
+                <input type="range" id="blurEdges" min="0" max="10" value="8" />
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const video = document.querySelector('#video');
+
+        var constraints = window.constraints = {
+            audio: true,
+            video: true
+        };
+
+        navigator.mediaDevices.getUserMedia(constraints).then((s) => {
+            const segmentation = new ApiVideoMediaStreamPersonSegmentation(s)
+
+            segmentation.applyBlurEffect({
+                backgroundBlurAmount: 15,
+                edgeBlurAmount: 8
+            })
+
+            document.getElementById("blur").addEventListener("input", (e) => segmentation.applyBlurEffect({
+                backgroundBlurAmount: e.target.value
+            }));
+            document.getElementById("blurEdges").addEventListener("input", (e) => segmentation.applyBlurEffect({
+                edgeBlurAmount: e.target.value
+            }));
+
+            segmentation.onReady((stream) => {
+                video.srcObject = stream;
+                video.play();
+            });
+
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+{
+  "name": "@api.video/media-stream-person-segmentation",
+  "version": "0.0.1",
+  "description": "api.video media stream person segmentation - change the background and emphasize the person in your media streams",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:apivideo/api.video-typescript-media-stream-person-segmentation.git"
+  },
+  "author": "api.video <ecosystem@api.video> (https://api.video/)",
+  "license": "MIT",
+  "keywords": [
+    "mediastream",
+    "person",
+    "segmentation",
+    "background"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/src/index.d.ts",
+  "scripts": {
+    "tslint": "tslint --project .",
+    "build": "npm run tslint && webpack --mode production",
+    "watch": "webpack --mode development --watch",
+    "prepublishOnly": "npm run build",
+    "test": "npm run build && mocha -r ts-node/register -r jsdom-global/register 'test/**/*.ts'"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.1",
+    "@types/jsdom": "^16.2.14",
+    "@types/mocha": "^9.1.1",
+    "chai": "^4.3.6",
+    "jsdom": "^20.0.0",
+    "jsdom-global": "^3.0.2",
+    "mocha": "^10.0.0",
+    "ts-loader": "^9.3.1",
+    "ts-node": "^10.8.2",
+    "tslint": "^6.1.3",
+    "typescript": "^4.7.4",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0",
+    "xhr-mock": "^2.5.1"
+  },
+  "dependencies": {
+    "@tensorflow-models/body-pix": "^2.2.0",
+    "@tensorflow/tfjs": "^4.2.0",
+    "@tensorflow/tfjs-converter": "^3.21.0",
+    "@tensorflow/tfjs-core": "^3.21.0",
+    "core-js": "^3.23.3"
+  }
+}
